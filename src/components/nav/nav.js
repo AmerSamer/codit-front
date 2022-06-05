@@ -35,7 +35,7 @@ const Nav = () => {
 
     return (
         <>
-            <Menu style={{ height: '8%' }} icon fluid fixed={'top'} size={'large'} inverted widths={4}>
+            <Menu style={{ height: '8%', backgroundColor:"rgba(0,0,0,0.6)" }} icon fluid fixed={'top'} size={'large'} inverted widths={4}>
                 <MenuItem
                     name='Home'
                     active={activeItem === 'Home'}

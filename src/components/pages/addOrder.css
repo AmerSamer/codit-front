@@ -1,0 +1,102 @@
+body {
+    /* background-color: aqua; */
+    background-image: url('../../bg-1.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#add_order {
+    width: 100%;
+    /* height: 100vh; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-image: url('../../bg-login.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; */
+    
+}
+
+.add_order_form {
+    width: 30%;
+    /* height: 100%; */
+    padding: 2.1rem;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    background-color: rgba(252, 252, 252, 0.2);
+}
+
+.color_select {
+    padding: 10px 20px;
+    border: none;
+    border-bottom: 3px solid transparent;
+    background-color: #eee;
+    outline-width: 0;
+    font-size: 1rem;  
+}
+
+.col-itemNum-order {
+    /* border: 2px saddlebrown solid; */
+    width: 5%;
+    float: left;
+    font-size: 120%;
+    margin-top: 3%;
+}
+.col-itemName-order {
+    /* border: 2px red solid; */
+    margin-left: 7%;
+    width: 40%;
+    float: left;
+}
+
+.col-itemDescription-order {
+    /* border: 2px red solid; */
+    /* width: -10%; */
+    margin-left: 55%;
+}
+
+.col-itemName-order input {
+    /* padding: 10px 20px; */
+    border: 1px solid gray;
+    /* border-bottom: 3px solid transparent; */
+    background-color: #eee;
+    outline-width: 0;
+    font-size: 1rem;
+    
+}
+.col-itemDescription-order textarea {
+    margin: 8px 0;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    background-color: #eee;
+    outline-width: 0;
+    height: 2.8rem;
+    width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+
+    /* For mobile phones: */
+    .add_order_form {
+        width: 90%;
+    }
+
+    .col-itemNum-order {
+      width: 100%;
+      /* padding: 1%; */
+    }
+    .col-itemName-order {
+      width: 77%;
+      margin-left: 0%;
+      /* padding: 1%; */
+    }
+    .col-itemDescription-order {
+        /* width: 20%; */
+        margin-left: 0%;
+        /* padding: 1%; */
+  
+      }
+}
