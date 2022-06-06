@@ -41,6 +41,20 @@ const PrivateScreen = () => {
         <div id='dashboard'>
             {privateData.admin ? <Nav /> : <NavNotAdmin />}
             <div>Home/Dashboard/ProvateScreen</div>
+            <div>Home/Dashboard/ProvateScreen</div>
+            <div>Home/Dashboard/ProvateScreen</div>
+            <div>Home/Dashboard/ProvateScreen</div>
+            <div>Home/Dashboard/ProvateScreen</div>
+            <div>Home/Dashboard/ProvateScreen</div>
+            <div>Home/Dashboard/ProvateScreen</div>
+            <div>Home/Dashboard/ProvateScreen</div>
+            <div>Home/Dashboard/ProvateScreen</div>
+            <div>Home/Dashboard/ProvateScreen</div>
+            <div>Home/Dashboard/ProvateScreen</div>
+            <div>Home/Dashboard/ProvateScreen</div><div>Home/Dashboard/ProvateScreen</div>
+            <div>Home/Dashboard/ProvateScreen</div>
+            <div>Home/Dashboard/ProvateScreen</div>
+           
         </div>
     )
 }

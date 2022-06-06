@@ -1,0 +1,33 @@
+body {
+    background-image: url('../../bg-1.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#add_employee {
+    width: 100%;
+    /* height: 100vh; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_employee_form {
+    width: 30%;
+    /* height: 100%; */
+    padding: 2.1rem;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    background-color: rgba(252, 252, 252, 0.2);
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    /* For mobile phones: */
+    .add_employee_form {
+        width: 90%;
+    }
+}

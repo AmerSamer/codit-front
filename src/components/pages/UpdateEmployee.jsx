@@ -6,9 +6,10 @@ import './addEmployees.css'
 // const port = "https://carpentry-production-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
 
-const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
+const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
     const navigate = useNavigate();
-    const allEmployeesST = useLocation().state; //get allEmployees State from father component
+    const allEmployeesST = useLocation().state[0]; //get allEmployees State from father component
+    const selectedEmployeeST = useLocation().state[1]; //get selectedEmployee State from father component    const [error, setError] = React.useState("");
     const [error, setError] = React.useState("");
     const [privateData, setPrivateData] = React.useState("");
     const [addNewEmployeeST, setAddNewEmployeeST] = React.useState({
@@ -17,7 +18,7 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
         email: email,
         phoneNumber: phoneNumber,
         address: address,
-        joinDate: (new Date().getFullYear() + "-" + ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "-" + ((new Date().getDate()) < 10 ? "0" + (new Date().getDate()) : (new Date().getDate()))),
+        // joinDate: (new Date().getFullYear() + "-" + ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "-" + ((new Date().getDate()) < 10 ? "0" + (new Date().getDate()) : (new Date().getDate()))),
     });
     const [buttonPopup, setButtonPopup] = React.useState([{
         bool: false,
@@ -33,7 +34,7 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
             };
             try {
                 const { data } = await axios.get(`${portLocal}/api/private`, config);
-                if (allEmployeesST && data.user.admin) {
+                if (allEmployeesST && selectedEmployeeST && data.user.admin) {
                     setPrivateData(data.user);
                 } else {
                     localStorage.removeItem("authTokenCodit");
@@ -50,10 +51,18 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
     }, []);
 
     const addNewEmployeeHandler = (e) => {
-        setAddNewEmployeeST({
-            ...addNewEmployeeST,
-            [e.target.name]: (e.target.value)
-        })
+        if(e.target.value===""){
+            setAddNewEmployeeST({
+                ...addNewEmployeeST,
+                [e.target.name]: undefined
+            })
+        }else{
+            setAddNewEmployeeST({
+                ...addNewEmployeeST,
+                [e.target.name]: (e.target.value)
+            })
+        }
+        
     }
 
     const backToOrdersClickBtn = () => {
@@ -67,23 +76,29 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
                 Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
             },
         };
-        const idExist = allEmployeesST.find(emp=>emp.id===addNewEmployeeST.id)
-        if(!idExist){
-            axios.post(`${portLocal}/v1/newEmployee`, addNewEmployeeST, config)
-            .then((res) => {
-                if (res.status === 200) {
-                    navigate('/employees')
-                }
-                else {
-                    alert("Something went wrong")
-                }
-            }).catch((err) => {
-                alert(`ERROR`)
-            })
-        }else{
+        const idExist = allEmployeesST.find(emp => emp.id === addNewEmployeeST.id)
+        if (!idExist) {
+            if(addNewEmployeeST.id===undefined&&addNewEmployeeST.fullName===undefined&&addNewEmployeeST.email===undefined&&addNewEmployeeST.phoneNumber===undefined&&addNewEmployeeST.address===undefined){
+                alert(`no changes.`)
+            }else{
+                // console.log("can make update and no id exist");
+                // console.log("addNewEmployeeST",addNewEmployeeST);
+                axios.put(`${portLocal}/v1/updateEmployee/${selectedEmployeeST._id}`, addNewEmployeeST, config)
+                    .then((res) => {
+                        if (res.status === 200) {
+                            navigate('/employees')
+                        }
+                        else {
+                            alert("Something went wrong")
+                        }
+                    }).catch((err) => {
+                        alert(`ERROR`)
+                    })
+            }
+    
+        } else {
             alert(`This ID number is already exist.`)
         }
-       
     }
 
     return error ? (
@@ -97,7 +112,7 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
                     </div>
                     {/* <hr /> */}
                     <div style={{ letterSpacing: "7px", textAlign: "center", padding: "1rem", fontSize: '23px', marginTop: "0rem" }}>
-                        Add Employee
+                        Update Employee
                     </div>
                     <div className="form-group" style={{ width: "100%", overflow: "hidden" }}>
                         <h4 className="ui dividing header" style={{ marginTop: "1rem" }}>Employee Details</h4>
@@ -106,7 +121,7 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >ID</label>
                             <div className="two fields">
                                 <div className="field">
-                                    <input type="text" name="id" pattern="[0-9]{9}" title="Should contain 9 Digits" required placeholder="" onChange={addNewEmployeeHandler} />
+                                    <input type="text" name="id" pattern="[0-9]{9}" title="Should contain 9 Digits"  placeholder={selectedEmployeeST.id} onChange={addNewEmployeeHandler} />
                                 </div>
                             </div>
                         </div>
@@ -114,7 +129,7 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Full Name</label>
                             <div className="two fields">
                                 <div className="field">
-                                    <input type="text" name="fullName" pattern="[a-z]{1,}[ ]{0,1}[a-z]{0,}" title="Should contain only lowercase letters (example example)" required placeholder="" onChange={addNewEmployeeHandler} />
+                                    <input type="text" name="fullName" pattern="[a-z]{1,}[ ]{0,1}[a-z]{0,}" title="Should contain only lowercase letters (example example)"  placeholder={selectedEmployeeST.fullName} onChange={addNewEmployeeHandler} />
                                 </div>
                             </div>
                         </div>
@@ -124,7 +139,7 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
 
                             <div className="two fields">
                                 <div className="field">
-                                    <input type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="example@example.exp" required placeholder="" onChange={addNewEmployeeHandler} />
+                                    <input type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="example@example.exp"  placeholder={selectedEmployeeST.email} onChange={addNewEmployeeHandler} />
                                 </div>
                             </div>
                         </div>
@@ -134,7 +149,7 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
 
                             <div className="two fields">
                                 <div className="field">
-                                    <input type="tel" name="phoneNumber" pattern="[0]{1}[5]{1}[0-9]{8}" title="Should start with 05 and contain 10 digits" required placeholder="" onChange={addNewEmployeeHandler} />
+                                    <input type="tel" name="phoneNumber" pattern="[0]{1}[5]{1}[0-9]{8}" title="Should start with 05 and contain 10 digits"  placeholder={selectedEmployeeST.phoneNumber} onChange={addNewEmployeeHandler} />
                                 </div>
                             </div>
                         </div>
@@ -144,14 +159,14 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
 
                             <div className="two fields">
                                 <div className="field">
-                                    <input type="text" name="address" required placeholder="" onChange={addNewEmployeeHandler} />
+                                    <input type="text" name="address"  placeholder={selectedEmployeeST.address} onChange={addNewEmployeeHandler} />
                                 </div>
                             </div>
                         </div>
                         {/* // */}
                         <hr />
                         <div style={{ textAlign: "center", marginTop: "1rem", width: "100%" }}>
-                            <button type="submit" style={{ width: "60%" }} className="btn btn-info" >Add</button>
+                            <button type="submit" style={{ width: "60%" }} className="btn btn-info" >update</button>
                         </div>
                     </div>
                 </form>
@@ -161,4 +176,4 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
     )
 }
 
-export default AddEmployees
+export default UpdateEmployee

@@ -13,6 +13,7 @@ import ResetPasswordScreen from "./components/screens/ResetPasswordScreen";
 import Employees from './components/pages/Employees';
 import Tasks from './components/pages/Tasks';
 import AddEmployees from './components/pages/AddEmployees';
+import UpdateEmployee from './components/pages/UpdateEmployee';
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
            <Route path="/employees" element={<Employees />} />
            <Route path="/tasks" element={<Tasks />} />
            <Route path="/addEmployees" element={<AddEmployees />} />
+           <Route path="/updateEmployee" element={<UpdateEmployee />} />
           </Routes>
         </div>
       </Fragment>

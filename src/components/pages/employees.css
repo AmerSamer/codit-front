@@ -6,7 +6,7 @@
 html,
 body {
     width: 100%;
-    height: max-content;
+    height: 100%;
     box-sizing: border-box;
     font-size: 1rem;
     background-image: url("../../bg-1.jpg") ;
@@ -90,7 +90,9 @@ body {
 
 /**/
 
-
+.btn-delete:hover{
+    color: red;
+}
 .dash_month {
     padding: 10px 20px;
     /* padding-top: 20px; */
