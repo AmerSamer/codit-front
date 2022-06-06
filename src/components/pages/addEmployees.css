@@ -1,8 +1,8 @@
 body {
-    background-image: url('../../bg-1.jpg');
+    /* background-image: url('../../bg-1.jpg');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
 }
 
 #add_employee {
@@ -11,6 +11,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: expand .8s ease forwards;
+    transition: all .8s ease;
 }
 
 .add_employee_form {
@@ -23,7 +25,14 @@ body {
     background-color: rgba(252, 252, 252, 0.2);
 }
 
-
+  @keyframes expand {
+    0% {
+      transform: translateX(1400px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
 @media only screen and (max-width: 768px) {
 
     /* For mobile phones: */

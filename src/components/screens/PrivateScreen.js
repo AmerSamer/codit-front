@@ -35,26 +35,27 @@ const PrivateScreen = () => {
 
     }, []);
 
+    const goToEmployees = () => {
+        navigate('/employees')
+    }
+    const goToTasks = () => {
+        navigate('/tasks')
+    }
     return error ? (
         <Navigate to="/login" />
     ) : (
-        <div id='dashboard'>
+        <div id='dashboard' style={{ overflow: "hidden" }}>
             {privateData.admin ? <Nav /> : <NavNotAdmin />}
-            <div>Home/Dashboard/ProvateScreen</div>
-            <div>Home/Dashboard/ProvateScreen</div>
-            <div>Home/Dashboard/ProvateScreen</div>
-            <div>Home/Dashboard/ProvateScreen</div>
-            <div>Home/Dashboard/ProvateScreen</div>
-            <div>Home/Dashboard/ProvateScreen</div>
-            <div>Home/Dashboard/ProvateScreen</div>
-            <div>Home/Dashboard/ProvateScreen</div>
-            <div>Home/Dashboard/ProvateScreen</div>
-            <div>Home/Dashboard/ProvateScreen</div>
-            <div>Home/Dashboard/ProvateScreen</div>
-            <div>Home/Dashboard/ProvateScreen</div><div>Home/Dashboard/ProvateScreen</div>
-            <div>Home/Dashboard/ProvateScreen</div>
-            <div>Home/Dashboard/ProvateScreen</div>
-           
+            <div style={{ textAlign: "left", marginLeft: "8%", marginTop: "5%" }}>
+                <div style={{ fontSize: "130%", fontFamily: "sans-serif", color: "white" }}>Welcome Back <span style={{ color: "darkgoldenrod" }}>@{privateData.username}</span></div>
+            </div>
+            <div style={{ textAlign: "center", height: "100%", marginTop: "12%" }}>
+                <div style={{ fontSize: "160%", fontFamily: "sans-serif", color: "white" }}>LET`S MAKE SOMETHING <span style={{ color: "dodgerblue" }}>GREAT!</span></div>
+                <div style={{ padding: '20px' }}>
+                    <button style={{ margin: '1rem', fontSize: "1rem" }} className='btn btn-outline-success' onClick={goToEmployees}>EMPLOYEES</button>
+                    <button style={{ margin: '1rem' }} className='btn btn-outline-success' onClick={goToTasks}>TASKS</button>
+                </div>
+            </div>
         </div>
     )
 }

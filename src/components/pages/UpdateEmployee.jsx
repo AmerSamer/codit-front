@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import './addEmployees.css'
+import PopupSave from "./PupupSave";
 // import PopupAddOrder from "./PopupAddOrder";
 // const port = "https://carpentry-production-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
@@ -22,7 +23,6 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
     });
     const [buttonPopup, setButtonPopup] = React.useState([{
         bool: false,
-        orderNumber: null,
     }])
     React.useEffect(() => {
         const fetchPrivateDate = async () => {
@@ -51,18 +51,18 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
     }, []);
 
     const addNewEmployeeHandler = (e) => {
-        if(e.target.value===""){
+        if (e.target.value === "") {
             setAddNewEmployeeST({
                 ...addNewEmployeeST,
                 [e.target.name]: undefined
             })
-        }else{
+        } else {
             setAddNewEmployeeST({
                 ...addNewEmployeeST,
                 [e.target.name]: (e.target.value)
             })
         }
-        
+
     }
 
     const backToOrdersClickBtn = () => {
@@ -70,32 +70,13 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
     }
     const submitNewEmployeeHandler = (event) => {
         event.preventDefault();
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
-            },
-        };
         const idExist = allEmployeesST.find(emp => emp.id === addNewEmployeeST.id)
         if (!idExist) {
-            if(addNewEmployeeST.id===undefined&&addNewEmployeeST.fullName===undefined&&addNewEmployeeST.email===undefined&&addNewEmployeeST.phoneNumber===undefined&&addNewEmployeeST.address===undefined){
+            if (addNewEmployeeST.id === undefined && addNewEmployeeST.fullName === undefined && addNewEmployeeST.email === undefined && addNewEmployeeST.phoneNumber === undefined && addNewEmployeeST.address === undefined) {
                 alert(`no changes.`)
-            }else{
-                // console.log("can make update and no id exist");
-                // console.log("addNewEmployeeST",addNewEmployeeST);
-                axios.put(`${portLocal}/v1/updateEmployee/${selectedEmployeeST._id}`, addNewEmployeeST, config)
-                    .then((res) => {
-                        if (res.status === 200) {
-                            navigate('/employees')
-                        }
-                        else {
-                            alert("Something went wrong")
-                        }
-                    }).catch((err) => {
-                        alert(`ERROR`)
-                    })
+            } else {
+                setButtonPopup({ bool: true })
             }
-    
         } else {
             alert(`This ID number is already exist.`)
         }
@@ -121,7 +102,7 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >ID</label>
                             <div className="two fields">
                                 <div className="field">
-                                    <input type="text" name="id" pattern="[0-9]{9}" title="Should contain 9 Digits"  placeholder={selectedEmployeeST.id} onChange={addNewEmployeeHandler} />
+                                    <input type="text" name="id" pattern="[0-9]{9}" title="Should contain 9 Digits" placeholder={selectedEmployeeST.id} onChange={addNewEmployeeHandler} />
                                 </div>
                             </div>
                         </div>
@@ -129,7 +110,7 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Full Name</label>
                             <div className="two fields">
                                 <div className="field">
-                                    <input type="text" name="fullName" pattern="[a-z]{1,}[ ]{0,1}[a-z]{0,}" title="Should contain only lowercase letters (example example)"  placeholder={selectedEmployeeST.fullName} onChange={addNewEmployeeHandler} />
+                                    <input type="text" name="fullName" pattern="[a-z]{1,}[ ]{0,1}[a-z]{0,}" title="Should contain only lowercase letters (example example)" placeholder={selectedEmployeeST.fullName} onChange={addNewEmployeeHandler} />
                                 </div>
                             </div>
                         </div>
@@ -139,7 +120,7 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
 
                             <div className="two fields">
                                 <div className="field">
-                                    <input type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="example@example.exp"  placeholder={selectedEmployeeST.email} onChange={addNewEmployeeHandler} />
+                                    <input type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="example@example.exp" placeholder={selectedEmployeeST.email} onChange={addNewEmployeeHandler} />
                                 </div>
                             </div>
                         </div>
@@ -149,7 +130,7 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
 
                             <div className="two fields">
                                 <div className="field">
-                                    <input type="tel" name="phoneNumber" pattern="[0]{1}[5]{1}[0-9]{8}" title="Should start with 05 and contain 10 digits"  placeholder={selectedEmployeeST.phoneNumber} onChange={addNewEmployeeHandler} />
+                                    <input type="tel" name="phoneNumber" pattern="[0]{1}[5]{1}[0-9]{8}" title="Should start with 05 and contain 10 digits" placeholder={selectedEmployeeST.phoneNumber} onChange={addNewEmployeeHandler} />
                                 </div>
                             </div>
                         </div>
@@ -159,7 +140,7 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
 
                             <div className="two fields">
                                 <div className="field">
-                                    <input type="text" name="address"  placeholder={selectedEmployeeST.address} onChange={addNewEmployeeHandler} />
+                                    <input type="text" name="address" placeholder={selectedEmployeeST.address} onChange={addNewEmployeeHandler} />
                                 </div>
                             </div>
                         </div>
@@ -171,7 +152,12 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
                     </div>
                 </form>
             </div>
-
+            <PopupSave type={"put"} trigger={buttonPopup.bool} setTrigger={setButtonPopup} selectedEmployeeST={selectedEmployeeST} addNewEmployeeST={addNewEmployeeST}>
+                <i style={{ fontSize: "50px" }} className="fa fa-save" aria-hidden="true"></i>
+                <h3>Save changes?</h3>
+                <h6>Your unsaved changes will be lost.</h6>
+                <h6>Save Employee`s Updates <span style={{ fontWeight: "bold" }}>{selectedEmployeeST.id}-{selectedEmployeeST.fullName}</span> changes before closing?</h6>
+            </PopupSave>
         </div>
     )
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import './addEmployees.css'
+import PopupSave from "./PupupSave";
 // import PopupAddOrder from "./PopupAddOrder";
 // const port = "https://carpentry-production-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
@@ -21,7 +22,6 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
     });
     const [buttonPopup, setButtonPopup] = React.useState([{
         bool: false,
-        orderNumber: null,
     }])
     React.useEffect(() => {
         const fetchPrivateDate = async () => {
@@ -61,29 +61,30 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
     }
     const submitNewEmployeeHandler = (event) => {
         event.preventDefault();
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
-            },
-        };
-        const idExist = allEmployeesST.find(emp=>emp.id===addNewEmployeeST.id)
-        if(!idExist){
-            axios.post(`${portLocal}/v1/newEmployee`, addNewEmployeeST, config)
-            .then((res) => {
-                if (res.status === 200) {
-                    navigate('/employees')
-                }
-                else {
-                    alert("Something went wrong")
-                }
-            }).catch((err) => {
-                alert(`ERROR`)
-            })
-        }else{
+        // const config = {
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
+        //     },
+        // };
+        const idExist = allEmployeesST.find(emp => emp.id === addNewEmployeeST.id)
+        if (!idExist) {
+            setButtonPopup({ bool: true })
+            // axios.post(`${portLocal}/v1/newEmployee`, addNewEmployeeST, config)
+            //     .then((res) => {
+            //         if (res.status === 200) {
+            //             navigate('/employees')
+            //         }
+            //         else {
+            //             alert("Something went wrong")
+            //         }
+            //     }).catch((err) => {
+            //         alert(`ERROR`)
+            //     })
+        } else {
             alert(`This ID number is already exist.`)
         }
-       
+
     }
 
     return error ? (
@@ -156,7 +157,12 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
                     </div>
                 </form>
             </div>
-
+            <PopupSave type={"post"} trigger={buttonPopup.bool} setTrigger={setButtonPopup} addNewEmployeeST={addNewEmployeeST}>
+                <i style={{ fontSize: "50px" }} className="fa fa-save" aria-hidden="true"></i>
+                <h3>Save changes?</h3>
+                <h6>Your unsaved changes will be lost.</h6>
+                <h6>Save New Employee <span style={{ fontWeight: "bold" }}>{addNewEmployeeST.id}-{addNewEmployeeST.fullName}</span> changes before closing?</h6>
+            </PopupSave>
         </div>
     )
 }
