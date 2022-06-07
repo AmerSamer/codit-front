@@ -56,7 +56,7 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
         })
     }
 
-    const backToOrdersClickBtn = () => {
+    const backToEmployeesClickBtn = () => {
         navigate('/employees')
     }
     const submitNewEmployeeHandler = (event) => {
@@ -94,7 +94,7 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
             <div className="add_employee_form">
                 <form onSubmit={submitNewEmployeeHandler} >
                     <div /*style={{ padding: "1rem", marginTop: "1rem" }}*/>
-                        <button type="button" className="btn btn-secondary" onClick={backToOrdersClickBtn}><i className="fa fa-arrow-left" aria-hidden="true"></i></button>
+                        <button type="button" className="btn btn-secondary" onClick={backToEmployeesClickBtn}><i className="fa fa-arrow-left" aria-hidden="true"></i></button>
                     </div>
                     {/* <hr /> */}
                     <div style={{ letterSpacing: "7px", textAlign: "center", padding: "1rem", fontSize: '23px', marginTop: "0rem" }}>

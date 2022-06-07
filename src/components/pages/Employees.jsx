@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-
 import { Navigate, useNavigate,/* Link */ } from "react-router-dom";
 import Nav from "../nav/nav";
 import "./employees.css";
@@ -32,14 +31,12 @@ const Employees = () => {
         const { data } = await axios.get(`${portLocal}/api/private`, config);
         if (data.user.admin) {
           setPrivateData(data.user);
-          getAllEmployees() //axios get getAllOrders after setting token 
+          getAllEmployees() //axios get getAllEmployees after setting token 
         } else {
-          console.log("else");
           localStorage.removeItem("authTokenCodit");
           setError("You are not authorized please login");
         }
       } catch (error) {
-        console.log("catch");
         localStorage.removeItem("authTokenCodit");
         setError("You are not authorized please login");
       }
@@ -84,7 +81,7 @@ const Employees = () => {
             </div>
             <div className="par">
               {allEmployees.length === 0 ? (
-                <div style={{ textAlign: "center", height: "70vh", display: "flex", justifyContent: "center", alignSelf: "center", alignItems: "center" }}>
+                <div style={{ textAlign: "center", display: "flex", justifyContent: "center", alignSelf: "center", alignItems: "center" }}>
                   <div style={{ fontSize: "160%", fontFamily: "sans-serif" }}>No Employees Found.</div>
                 </div>
               ) : (
