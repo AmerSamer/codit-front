@@ -118,7 +118,7 @@ const Tasks = () => {
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.id}</td>
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.name}</td>
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.createdDate}</td>
-                          <td onClick={() => trTaskHandler(tsk._id)}>{tsk.assign.map(x => x.idname)}</td>
+                          <td onClick={() => trTaskHandler(tsk._id)}>{tsk.assign.map(x => x.id)}</td>
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.status}</td>
                           <td style={{ width: "6rem" }}><i className="btn-delete fas fa-trash-alt" onClick={() => setButtonPopup({ bool: true, idTask: tsk.id, id: tsk._id, name: tsk.name })}></i></td>
                         </tr>)
