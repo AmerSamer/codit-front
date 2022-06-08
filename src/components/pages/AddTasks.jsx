@@ -57,19 +57,30 @@ const AddTasks = ({ id, name, assign }) => {
             [e.target.name]: (e.target.value)
         })
     }
-    const selectEmployeeHandler = (event) => {
-        const isExistEmployee = selectedAssignEmployees.find(i => i.idname === event.target.value)
-        if (!isExistEmployee && event.target.value !== "Assign Employees") {
+    const assignEmployeeForTasks = (id) => {
+        console.log(id);
+        const isExistEmployee = selectedAssignEmployees.find(i => i.id === id)
+        if (!isExistEmployee) {
             setSelectedAssignEmployees(s => {
                 return [
                     ...s,
                     {
-                        idname: event.target.value,
+                        id: id,
                         start: false,
                         end: false
                     }
                 ];
             });
+        } else {
+            const index = selectedAssignEmployees.findIndex(object => {
+                return object.id === id;
+            });
+            if (index > -1) {
+                selectedAssignEmployees.splice(index,1)
+                setSelectedAssignEmployees(r=>{
+                  return [...r]
+                })
+            }
         }
     }
     const submitNewTaskHandler = (event) => {
@@ -80,7 +91,7 @@ const AddTasks = ({ id, name, assign }) => {
                 Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
             },
         };
-        const t = {
+        const newTask = {
             id: addNewTaskST.id,
             name: addNewTaskST.name,
             status: "waiting",
@@ -88,19 +99,22 @@ const AddTasks = ({ id, name, assign }) => {
             createdDate: (new Date().getFullYear() + "-" + ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "-" + ((new Date().getDate()) < 10 ? "0" + (new Date().getDate()) : (new Date().getDate()))),
 
         }
-        console.log(t);
-        // axios.post(`${portLocal}/v1/newTask`, addNewTaskST, config)
-        //     .then((res) => {
-        //         if (res.status === 200) {
-        //             navigate('/tasks')
-        //         }
-        //         else {
-        //             alert("Something went wrong")
-        //         }
-        //     }).catch((err) => {
-        //         alert(`ERROR`)
-        //     })
+        axios.post(`${portLocal}/v1/newTask`, newTask, config)
+            .then((res) => {
+                if (res.status === 200) {
+                    navigate('/tasks')
+                }
+                else {
+                    alert("Something went wrong")
+                }
+            }).catch((err) => {
+                alert(`ERROR`)
+            })
     }
+    const sectionStyle = (id) => {
+        const style = { backgroundColor: "rgba(1, 156, 49,0.8)", boxShadow: "0 1rem 2rem rgba(0, 0, 0, 0.2)", fontSize: "106%" }
+        return (selectedAssignEmployees.find(i => i.id === id)) ? style : {}
+    };
 
     return error ? (
         <Navigate to="/login" />
@@ -139,61 +153,15 @@ const AddTasks = ({ id, name, assign }) => {
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Assign</label>
                             <div className="two fields">
                                 <div className="field">
-                                    <select name="assign" className="employee_select" style={{ boxSizing: "border-box", width: "100%", height: "6vh", backgroundColor: "rgba(255,255,255,0.3)" }} onChange={selectEmployeeHandler} >
-                                        <option>Assign Employees</option>
-                                        {allEmployeesST.map((emp, index) => {
-                                            return (
-                                                <option key={index}>{emp.id}-{emp.fullName}</option>
-                                            )
-                                        })}
-                                    </select>
+                                    {console.log("selectedAssignEmployees", selectedAssignEmployees)}
+                                    {allEmployeesST.map((emp, index) => {
+                                        return (
+                                            <div style={sectionStyle(emp._id)} key={index} onClick={() => assignEmployeeForTasks(emp._id)}>{emp.id}-{emp.fullName}</div>
+                                        )
+                                    })}
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <hr />
-                            <div>
-                                {selectedAssignEmployees.map((slcemp, index) => {
-                                    return (
-                                        <div key={index} className="sss">
-                                            <div style={{ width: "70%", float: "left", fontSize: "110%", fontWeight: "400" }} /*onClick={()=>test(slcemp.id)}*/>{slcemp.idname}</div>
-                                            <div style={{ marginLeft: "90%" }}><i className="btn-delete fas fa-trash-alt"></i></div>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                            {/* <div>
-                                {selectedAssignEmployees.length!==0?selectedAssignEmployees.map((slcemp, index) => {
-                                    return (
-                                        <div key={index} className="sss">
-                                            <div style={{width: "70%", float: "left", fontSize: "110%", fontWeight: "400" }}>{slcemp}</div>
-                                            <div style={{ marginLeft: "90%" }}><i className="btn-delete fas fa-trash-alt"></i></div>
-                                        </div>
-                                    )
-                                }):""}
-                            </div> */}
-                        </div>
-                        {/* // */}
-                        {/* <div className="field">
-                            <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Phone Number</label>
-
-                            <div className="two fields">
-                                <div className="field">
-                                    <input type="tel" name="phoneNumber" pattern="[0]{1}[5]{1}[0-9]{8}" title="Should start with 05 and contain 10 digits" required placeholder="" onChange={addNewTaskHandler} />
-                                </div>
-                            </div>
-                        </div> */}
-                        {/* // */}
-                        {/* <div className="field">
-                            <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Address</label>
-
-                            <div className="two fields">
-                                <div className="field">
-                                    <input type="text" name="address" required placeholder="" onChange={addNewTaskHandler} />
-                                </div>
-                            </div>
-                        </div> */}
-                        {/* // */}
                         <hr />
                         <div style={{ textAlign: "center", marginTop: "1rem", width: "100%" }}>
                             <button type="submit" style={{ width: "60%" }} className="btn btn-info" >Add</button>

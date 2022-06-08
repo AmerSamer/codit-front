@@ -3,20 +3,20 @@ import axios from "axios";
 import { Navigate, useNavigate,/* Link */ } from "react-router-dom";
 import Nav from "../nav/nav";
 import "./employees.css";
-import PopupRemove from "./PupupRemove";
+import PopupRemoveTask from "./PopupRemoveTask";
 const portLocal = "http://localhost:4001"
 
 const Tasks = () => {
   const navigate = useNavigate()
   const [error, setError] = React.useState("");
   const [privateData, setPrivateData] = React.useState({ admin: true });
-  const [allTasks, setAllTasks] = React.useState([{ id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }]);
+  const [allTasks, setAllTasks] = React.useState([]);
   const [allEmployees, setAllEmployees] = React.useState([{ id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }]);
   const [buttonPopup, setButtonPopup] = React.useState([{
     bool: false,
-    idEmployee: null,
+    idTask: null,
     id: null,
-    fullName: null
+    name: null
   }])
 
   React.useEffect(() => {
@@ -56,7 +56,7 @@ const Tasks = () => {
     };
     const response = await axios.get(`${portLocal}/v1/getAllTasks/`, config);
     setAllTasks(response.data);
-    
+
   }
   const getAllEmployees = async () => {
     const config = {
@@ -67,15 +67,16 @@ const Tasks = () => {
     };
     const response = await axios.get(`${portLocal}/v1/getAllEmployees/`, config);
     setAllEmployees(response.data);
-    
+
   }
   const addTasksClickBtn = () => {
-    navigate('/addTasks', { state: [allTasks,allEmployees] })
+    navigate('/addTasks', { state: [allTasks, allEmployees] })
   }
   const trTaskHandler = (id) => {
     const selectedTask = allTasks.find(emp => emp._id === id)
     navigate('/updateTask', { state: [allTasks, selectedTask] })
   }
+
 
   return error ? (
     <Navigate to="/login" />
@@ -111,16 +112,17 @@ const Tasks = () => {
                     </tr> */}
                     </thead>
                     <tbody>
-                      {allTasks.map((tsk, index) => {
+                      {allTasks.length > 0 ? allTasks.map((tsk, index) => {
                         return (<tr key={index} >
+                          {/* {console.log("tsk.assign",tsk.assign[0].idname)} */}
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.id}</td>
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.name}</td>
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.createdDate}</td>
-                          <td onClick={() => trTaskHandler(tsk._id)}>{tsk.assign}</td>
+                          <td onClick={() => trTaskHandler(tsk._id)}>{tsk.assign.map(x => x.idname)}</td>
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.status}</td>
-                          <td style={{ width: "6rem" }}><i className="btn-delete fas fa-trash-alt" onClick={() => setButtonPopup({ bool: true, idEmployee: tsk.id, id: tsk._id, fullName: tsk.fullName })}></i></td>
+                          <td style={{ width: "6rem" }}><i className="btn-delete fas fa-trash-alt" onClick={() => setButtonPopup({ bool: true, idTask: tsk.id, id: tsk._id, name: tsk.name })}></i></td>
                         </tr>)
-                      })}
+                      }) : ""}
                     </tbody>
                   </table>
                 </div>
@@ -130,11 +132,11 @@ const Tasks = () => {
         </div>
       </div>
       <div className="overlay"></div>
-      {/* <PopupRemove id={buttonPopup.id} trigger={buttonPopup.bool} setTrigger={setButtonPopup} allEmployees={allEmployees} setAllEmployees={setAllEmployees}>
+      <PopupRemoveTask id={buttonPopup.id} trigger={buttonPopup.bool} setTrigger={setButtonPopup} allTasks={allTasks} setAllTasks={setAllTasks}>
         <i style={{ fontSize: "50px" }} className="fa fa-trash" aria-hidden="true"></i>
         <h3>Delete Permanently</h3>
-        <h6>Are you sure you want to delete <span style={{ fontWeight: "bold" }}>{buttonPopup.idEmployee}-{buttonPopup.fullName}</span> employee?</h6>
-      </PopupRemove> */}
+        <h6>Are you sure you want to delete <span style={{ fontWeight: "bold" }}>{buttonPopup.idTask}-{buttonPopup.name}</span> Task?</h6>
+      </PopupRemoveTask>
     </div>
   )
 }

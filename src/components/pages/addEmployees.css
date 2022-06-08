@@ -24,7 +24,7 @@ body {
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
     background-color: rgba(252, 252, 252, 0.2);
 }
-.sss:hover{
+.selected-emp-map:hover{
   background-color: rgba(255, 255, 255, 0.2);
 }
   @keyframes expand {
