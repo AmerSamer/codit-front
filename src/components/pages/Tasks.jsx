@@ -76,8 +76,43 @@ const Tasks = () => {
     const selectedTask = allTasks.find(emp => emp._id === id)
     navigate('/updateTask', { state: [allTasks, selectedTask] })
   }
+  const employeeNamesAssigned = (tsk) => {
+    const result = allEmployees.filter((cert) => {
+      let arr = tsk.assign.filter((detail) => detail.id === cert._id);
+      return !(arr.length === 0);
+    });
+    // console.log(result);
+    return result;
+  };
+  const calcTime = (startDate, endDate) => {
+    // console.log(startDate);
+    if (startDate && !endDate) {
+      const date1 = new Date(startDate);
+      const date2 = new Date();
+      let diffTime = 0
+      if (Math.abs(date2 - (date1)) / 3.6e+6 < 1) {
+        diffTime = Math.abs(date2 - date1) / 60000;
+        return "(" + diffTime.toFixed(0) + "mins (still working))"
+      } else {
+        diffTime = Math.abs(date2 - date1) / 3.6e+6;
+        return "(" + diffTime.toFixed(1) + "hours (still working))"
+      }
+    } else if (startDate && endDate) {
+      const date1 = new Date(startDate);
+      const date2 = new Date(endDate);
+      let diffTime = 0
+      if (Math.abs(date2 - (date1)) / 3.6e+6 < 1) {
+        diffTime = Math.abs(date2 - date1) / 60000;
+        return "(" + diffTime.toFixed(0) + "mins (done))"
+      } else {
+        diffTime = Math.abs(date2 - date1) / 3.6e+6;
+        return "(" + diffTime.toFixed(1) + "hours (done))"
+      }
+    } else {
+      return "(0mins (didn't start))"
+    }
 
-
+  }
   return error ? (
     <Navigate to="/login" />
   ) : (
@@ -94,35 +129,27 @@ const Tasks = () => {
             </div>
             <div className="par">
               {allTasks.length === 0 ? (
-                <div style={{ textAlign: "center", display: "flex", justifyContent: "center", alignSelf: "center", alignItems: "center" }}>
-                  <div style={{ fontSize: "160%", fontFamily: "sans-serif" }}>No Tasks Found.</div>
-                </div>
+                <></>
               ) : (
                 <div >
                   <table id="employees_table_data">
                     <thead>
-                      {/* <tr>
-                      <th>ID</th>
-                      <th>Full Name</th>
-                      <th>Email</th>
-                      <th>Phone Number</th>
-                      <th>Address</th>
-                      <th>Join Date</th>
-                      <th>More</th>
-                    </tr> */}
                     </thead>
                     <tbody>
                       {allTasks.length > 0 ? allTasks.map((tsk, index) => {
                         return (<tr key={index} >
-                          {/* {console.log("tsk.assign",tsk.assign[0].idname)} */}
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.id}</td>
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.name}</td>
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.createdDate}</td>
-                          <td onClick={() => trTaskHandler(tsk._id)}>{tsk.assign.map(x => x.id)}</td>
+                          <td onClick={() => trTaskHandler(tsk._id)}>{employeeNamesAssigned(tsk).map((i, index) => (
+                            <div key={index}>- {i.fullName} {tsk.assign.map(x => <span style={{ color: "rgba(255,255,255,0.7)" }}>{x.id === i._id ? calcTime(x.startDate, x.endDate) : ""}</span>)} </div>
+                          ))}</td>
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.status}</td>
                           <td style={{ width: "6rem" }}><i className="btn-delete fas fa-trash-alt" onClick={() => setButtonPopup({ bool: true, idTask: tsk.id, id: tsk._id, name: tsk.name })}></i></td>
                         </tr>)
-                      }) : ""}
+                      }) : <div style={{ textAlign: "center", display: "flex", justifyContent: "center", alignSelf: "center", alignItems: "center" }}>
+                        <div style={{ fontSize: "160%", fontFamily: "sans-serif" }}>No Tasks Found.</div>
+                      </div>}
                     </tbody>
                   </table>
                 </div>

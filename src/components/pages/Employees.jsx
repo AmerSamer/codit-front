@@ -10,7 +10,7 @@ const Employees = () => {
   const navigate = useNavigate()
   const [error, setError] = React.useState("");
   const [privateData, setPrivateData] = React.useState({ admin: true });
-  const [allEmployees, setAllEmployees] = React.useState([{ id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }, { id: "s" }]);
+  const [allEmployees, setAllEmployees] = React.useState([]);
   const [buttonPopup, setButtonPopup] = React.useState([{
     bool: false,
     idEmployee: null,
@@ -81,9 +81,10 @@ const Employees = () => {
             </div>
             <div className="par">
               {allEmployees.length === 0 ? (
-                <div style={{ textAlign: "center", display: "flex", justifyContent: "center", alignSelf: "center", alignItems: "center" }}>
-                  <div style={{ fontSize: "160%", fontFamily: "sans-serif" }}>No Employees Found.</div>
-                </div>
+                <></>
+                // <div style={{ textAlign: "center", display: "flex", justifyContent: "center", alignSelf: "center", alignItems: "center" }}>
+                //   <div style={{ fontSize: "160%", fontFamily: "sans-serif" }}>No Employees Found.</div>
+                // </div>
               ) : (
                 <div >
                   <table id="employees_table_data">
@@ -99,7 +100,7 @@ const Employees = () => {
                     </tr> */}
                     </thead>
                     <tbody>
-                      {allEmployees.map((emp, index) => {
+                      {allEmployees.length>0?allEmployees.map((emp, index) => {
                         return (<tr key={index} >
                           <td onClick={() => trEmployeeHandler(emp._id)}>{emp.id}</td>
                           <td onClick={() => trEmployeeHandler(emp._id)}>{emp.fullName}</td>
@@ -109,7 +110,9 @@ const Employees = () => {
                           <td onClick={() => trEmployeeHandler(emp._id)}>{emp.joinDate}</td>
                           <td style={{ width: "6rem" }}><i className="btn-delete fas fa-trash-alt" onClick={() => setButtonPopup({ bool: true, idEmployee: emp.id, id: emp._id, fullName: emp.fullName })}></i></td>
                         </tr>)
-                      })}
+                      }):<div style={{ textAlign: "center", display: "flex", justifyContent: "center", alignSelf: "center", alignItems: "center" }}>
+                      <div style={{ fontSize: "160%", fontFamily: "sans-serif" }}>No Employees Found.</div>
+                    </div>}
                     </tbody>
                   </table>
                 </div>

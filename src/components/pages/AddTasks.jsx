@@ -67,7 +67,9 @@ const AddTasks = ({ id, name, assign }) => {
                     {
                         id: id,
                         start: false,
-                        end: false
+                        end: false,
+                        startDate: null,
+                        endDate: null
                     }
                 ];
             });
@@ -91,25 +93,31 @@ const AddTasks = ({ id, name, assign }) => {
                 Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
             },
         };
-        const newTask = {
-            id: addNewTaskST.id,
-            name: addNewTaskST.name,
-            status: "waiting",
-            assign: selectedAssignEmployees,
-            createdDate: (new Date().getFullYear() + "-" + ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "-" + ((new Date().getDate()) < 10 ? "0" + (new Date().getDate()) : (new Date().getDate()))),
-
+        const idExist = allTasksST.find(emp => emp.id === addNewTaskST.id)
+        if(!idExist){
+            const newTask = {
+                id: addNewTaskST.id,
+                name: addNewTaskST.name,
+                status: "waiting",
+                assign: selectedAssignEmployees,
+                createdDate: (new Date().getFullYear() + "-" + ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "-" + ((new Date().getDate()) < 10 ? "0" + (new Date().getDate()) : (new Date().getDate()))),
+    
+            }
+            axios.post(`${portLocal}/v1/newTask`, newTask, config)
+                .then((res) => {
+                    if (res.status === 200) {
+                        navigate('/tasks')
+                    }
+                    else {
+                        alert("Something went wrong")
+                    }
+                }).catch((err) => {
+                    alert(`ERROR`)
+                })
+        }else{
+            alert(`This ID is already exist.`)
         }
-        axios.post(`${portLocal}/v1/newTask`, newTask, config)
-            .then((res) => {
-                if (res.status === 200) {
-                    navigate('/tasks')
-                }
-                else {
-                    alert("Something went wrong")
-                }
-            }).catch((err) => {
-                alert(`ERROR`)
-            })
+        
     }
     const sectionStyle = (id) => {
         const style = { backgroundColor: "rgba(1, 156, 49,0.8)", boxShadow: "0 1rem 2rem rgba(0, 0, 0, 0.2)", fontSize: "106%" }
@@ -149,11 +157,12 @@ const AddTasks = ({ id, name, assign }) => {
                             </div>
                         </div>
                         {/* // */}
+                        <hr/>
                         <div className="field">
-                            <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Assign</label>
+                            <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Assign</label><hr/>
+                            <label style={{ fontFamily: "revert", fontWeight: "500", color: "black", padding: "0%", fontSize: "80%" }} >*Assign/Unassign employees by clicking on it</label>
                             <div className="two fields">
                                 <div className="field">
-                                    {console.log("selectedAssignEmployees", selectedAssignEmployees)}
                                     {allEmployeesST.map((emp, index) => {
                                         return (
                                             <div style={sectionStyle(emp._id)} key={index} onClick={() => assignEmployeeForTasks(emp._id)}>{emp.id}-{emp.fullName}</div>
