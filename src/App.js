@@ -16,6 +16,7 @@ import AddEmployees from './components/pages/AddEmployees';
 import UpdateEmployee from './components/pages/UpdateEmployee';
 import AddTasks from './components/pages/AddTasks';
 import EmployeeTasks from './components/pages/EmployeeTasks';
+import UpdateTask from './components/pages/UpdateTask';
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
            <Route path="/updateEmployee" element={<UpdateEmployee />} />
            <Route path="/tasks" element={<Tasks />} />
            <Route path="/addTasks" element={<AddTasks />} />
+           <Route path="/updateTask" element={<UpdateTask />} />
            <Route path="/employeeTasks" element={<EmployeeTasks />} />
           </Routes>
         </div>

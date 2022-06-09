@@ -62,7 +62,6 @@ const PrivateScreen = () => {
     }
     const goToEmployeeTasks = () => {
         if (selectedEmployeeTasks !== "" && selectedEmployeeTasks !== "Choose your name") {
-            // const employeeIdSplit = selectedEmployeeTasks.split("-")[0]
             navigate('/employeeTasks', {state : selectedEmployeeTasks})
         } else {
             alert("choose name")

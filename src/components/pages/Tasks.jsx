@@ -74,18 +74,16 @@ const Tasks = () => {
   }
   const trTaskHandler = (id) => {
     const selectedTask = allTasks.find(emp => emp._id === id)
-    navigate('/updateTask', { state: [allTasks, selectedTask] })
+    navigate('/updateTask', { state: [allTasks, selectedTask, allEmployees] })
   }
   const employeeNamesAssigned = (tsk) => {
     const result = allEmployees.filter((cert) => {
       let arr = tsk.assign.filter((detail) => detail.id === cert._id);
       return !(arr.length === 0);
     });
-    // console.log(result);
     return result;
   };
   const calcTime = (startDate, endDate) => {
-    // console.log(startDate);
     if (startDate && !endDate) {
       const date1 = new Date(startDate);
       const date2 = new Date();
@@ -142,7 +140,7 @@ const Tasks = () => {
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.name}</td>
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.createdDate}</td>
                           <td onClick={() => trTaskHandler(tsk._id)}>{employeeNamesAssigned(tsk).map((i, index) => (
-                            <div key={index}>- {i.fullName} {tsk.assign.map(x => <span style={{ color: "rgba(255,255,255,0.7)" }}>{x.id === i._id ? calcTime(x.startDate, x.endDate) : ""}</span>)} </div>
+                            <div key={index}>- {i.fullName} {tsk.assign.map((x,indexx) => <span key={indexx} style={{ color: "rgba(255,255,255,0.7)" }}>{x.id === i._id ? calcTime(x.startDate, x.endDate) : ""}</span>)} </div>
                           ))}</td>
                           <td onClick={() => trTaskHandler(tsk._id)}>{tsk.status}</td>
                           <td style={{ width: "6rem" }}><i className="btn-delete fas fa-trash-alt" onClick={() => setButtonPopup({ bool: true, idTask: tsk.id, id: tsk._id, name: tsk.name })}></i></td>

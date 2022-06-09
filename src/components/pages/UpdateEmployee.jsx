@@ -10,7 +10,7 @@ const portLocal = "http://localhost:4001"
 const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
     const navigate = useNavigate();
     const allEmployeesST = useLocation().state[0]; //get allEmployees State from father component
-    const selectedEmployeeST = useLocation().state[1]; //get selectedEmployee State from father component    const [error, setError] = React.useState("");
+    const selectedEmployeeST = useLocation().state[1]; //get selectedEmployee State from father component
     const [error, setError] = React.useState("");
     const [privateData, setPrivateData] = React.useState("");
     const [addNewEmployeeST, setAddNewEmployeeST] = React.useState({
@@ -19,7 +19,6 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
         email: email,
         phoneNumber: phoneNumber,
         address: address,
-        // joinDate: (new Date().getFullYear() + "-" + ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "-" + ((new Date().getDate()) < 10 ? "0" + (new Date().getDate()) : (new Date().getDate()))),
     });
     const [buttonPopup, setButtonPopup] = React.useState([{
         bool: false,
@@ -65,7 +64,7 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
 
     }
 
-    const backToOrdersClickBtn = () => {
+    const backToEmployeesClickBtn = () => {
         navigate('/employees')
     }
     const submitNewEmployeeHandler = (event) => {
@@ -89,7 +88,7 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
             <div className="add_employee_form">
                 <form onSubmit={submitNewEmployeeHandler} >
                     <div /*style={{ padding: "1rem", marginTop: "1rem" }}*/>
-                        <button type="button" className="btn btn-secondary" onClick={backToOrdersClickBtn}><i className="fa fa-arrow-left" aria-hidden="true"></i></button>
+                        <button type="button" className="btn btn-secondary" onClick={backToEmployeesClickBtn}><i className="fa fa-arrow-left" aria-hidden="true"></i></button>
                     </div>
                     {/* <hr /> */}
                     <div style={{ letterSpacing: "7px", textAlign: "center", padding: "1rem", fontSize: '23px', marginTop: "0rem" }}>

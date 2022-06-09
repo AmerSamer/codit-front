@@ -3,6 +3,7 @@ import axios from "axios";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import './addEmployees.css'
 import PopupSave from "./PupupSave";
+import PopupSaveTask from "./PupupSaveTask";
 // import PopupAddOrder from "./PopupAddOrder";
 // const port = "https://carpentry-production-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
@@ -87,33 +88,9 @@ const AddTasks = ({ id, name, assign }) => {
     }
     const submitNewTaskHandler = (event) => {
         event.preventDefault();
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
-            },
-        };
-        const idExist = allTasksST.find(emp => emp.id === addNewTaskST.id)
+        const idExist = allTasksST.find(tsk => tsk.id === addNewTaskST.id)
         if(!idExist){
-            const newTask = {
-                id: addNewTaskST.id,
-                name: addNewTaskST.name,
-                status: "waiting",
-                assign: selectedAssignEmployees,
-                createdDate: (new Date().getFullYear() + "-" + ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "-" + ((new Date().getDate()) < 10 ? "0" + (new Date().getDate()) : (new Date().getDate()))),
-    
-            }
-            axios.post(`${portLocal}/v1/newTask`, newTask, config)
-                .then((res) => {
-                    if (res.status === 200) {
-                        navigate('/tasks')
-                    }
-                    else {
-                        alert("Something went wrong")
-                    }
-                }).catch((err) => {
-                    alert(`ERROR`)
-                })
+            setButtonPopup({ bool: true })
         }else{
             alert(`This ID is already exist.`)
         }
@@ -178,12 +155,12 @@ const AddTasks = ({ id, name, assign }) => {
                     </div>
                 </form>
             </div>
-            {/* <PopupSave type={"post"} trigger={buttonPopup.bool} setTrigger={setButtonPopup} addNewEmployeeST={addNewEmployeeST}>
+            <PopupSaveTask type={"post"} trigger={buttonPopup.bool} setTrigger={setButtonPopup} addNewTaskST={addNewTaskST} selectedAssignEmployees={selectedAssignEmployees}>
                 <i style={{ fontSize: "50px" }} className="fa fa-save" aria-hidden="true"></i>
                 <h3>Save changes?</h3>
                 <h6>Your unsaved changes will be lost.</h6>
-                <h6>Save New Employee <span style={{ fontWeight: "bold" }}>{addNewEmployeeST.id}-{addNewEmployeeST.fullName}</span> changes before closing?</h6>
-            </PopupSave> */}
+                <h6>Save New Task <span style={{ fontWeight: "bold" }}>{addNewTaskST.id}-{addNewTaskST.name}</span> changes before closing?</h6>
+            </PopupSaveTask>
         </div>
     )
 }

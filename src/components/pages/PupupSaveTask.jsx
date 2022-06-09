@@ -5,7 +5,7 @@ import './Popup.css'
 // const port = "https://carpentry-production-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
 
-const PopupSave = (props) => {
+const PopupSaveTask = (props) => {
     const navigate = useNavigate();
 
     const saveHandler = () => {
@@ -16,10 +16,18 @@ const PopupSave = (props) => {
             },
         };
         if (props.type === "post") {
-            axios.post(`${portLocal}/v1/newEmployee`, props.addNewEmployeeST, config)
+            const newTask = {
+                id: props.addNewTaskST.id,
+                name: props.addNewTaskST.name,
+                status: "waiting",
+                assign: props.selectedAssignEmployees,
+                createdDate: (new Date().getFullYear() + "-" + ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "-" + ((new Date().getDate()) < 10 ? "0" + (new Date().getDate()) : (new Date().getDate()))),
+
+            }
+            axios.post(`${portLocal}/v1/newTask`, newTask, config)
                 .then((res) => {
                     if (res.status === 200) {
-                        navigate('/employees')
+                        navigate('/tasks')
                     }
                     else {
                         alert("Something went wrong")
@@ -28,10 +36,18 @@ const PopupSave = (props) => {
                     alert(`ERROR`)
                 })
         } else {
-            axios.put(`${portLocal}/v1/updateEmployee/${props.selectedEmployeeST._id}`, props.addNewEmployeeST, config)
+            const newUpdatedTask = {
+                id: props.addNewTaskST.id,
+                name: props.addNewTaskST.name,
+                // status: "waiting",
+                assign: props.newEmployeesAssigned,
+                // createdDate: (new Date().getFullYear() + "-" + ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "-" + ((new Date().getDate()) < 10 ? "0" + (new Date().getDate()) : (new Date().getDate()))),
+
+            }
+            axios.put(`${portLocal}/v1/updateTask/${props.selectedTaskST._id}`, newUpdatedTask, config)
                 .then((res) => {
                     if (res.status === 200) {
-                        navigate('/employees')
+                        navigate('/tasks')
                     }
                     else {
                         alert("Something went wrong")
@@ -54,4 +70,4 @@ const PopupSave = (props) => {
     ) : ""
 }
 
-export default PopupSave
+export default PopupSaveTask
