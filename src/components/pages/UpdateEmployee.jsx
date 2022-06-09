@@ -4,7 +4,7 @@ import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import './addEmployees.css'
 import PopupSave from "./PupupSave";
 // import PopupAddOrder from "./PopupAddOrder";
-// const port = "https://carpentry-production-back.herokuapp.com"
+const port = "https://codit-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
 
 const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
@@ -32,7 +32,7 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
                 },
             };
             try {
-                const { data } = await axios.get(`${portLocal}/api/private`, config);
+                const { data } = await axios.get(`${port}/api/private`, config);
                 if (allEmployeesST && selectedEmployeeST && data.user.admin) {
                     setPrivateData(data.user);
                 } else {

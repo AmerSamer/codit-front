@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./ForgotPasswordScreen.css";
 import { useNavigate } from "react-router-dom";
-// const port = "https://carpentry-production-back.herokuapp.com"
+const port = "https://codit-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
 
 const ForgotPasswordScreen = () => {
@@ -22,7 +22,7 @@ const ForgotPasswordScreen = () => {
 
     try {
       const { data } = await axios.post(
-        `${portLocal}/api/auth/forgotpassword`,
+        `${port}/api/auth/forgotpassword`,
         { email },
         config
       );

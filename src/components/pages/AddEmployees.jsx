@@ -4,7 +4,7 @@ import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import './addEmployees.css'
 import PopupSave from "./PupupSave";
 // import PopupAddOrder from "./PopupAddOrder";
-// const port = "https://carpentry-production-back.herokuapp.com"
+const port = "https://codit-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
 
 const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
@@ -32,7 +32,7 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
                 },
             };
             try {
-                const { data } = await axios.get(`${portLocal}/api/private`, config);
+                const { data } = await axios.get(`${port}/api/private`, config);
                 if (allEmployeesST && data.user.admin) {
                     setPrivateData(data.user);
                 } else {
@@ -61,26 +61,9 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
     }
     const submitNewEmployeeHandler = (event) => {
         event.preventDefault();
-        // const config = {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
-        //     },
-        // };
         const idExist = allEmployeesST.find(emp => emp.id === addNewEmployeeST.id)
         if (!idExist) {
             setButtonPopup({ bool: true })
-            // axios.post(`${portLocal}/v1/newEmployee`, addNewEmployeeST, config)
-            //     .then((res) => {
-            //         if (res.status === 200) {
-            //             navigate('/employees')
-            //         }
-            //         else {
-            //             alert("Something went wrong")
-            //         }
-            //     }).catch((err) => {
-            //         alert(`ERROR`)
-            //     })
         } else {
             alert(`This ID number is already exist.`)
         }

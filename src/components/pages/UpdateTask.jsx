@@ -5,8 +5,7 @@ import './addEmployees.css'
 import PopupSaveTask from "./PupupSaveTask";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import PopupAddOrder from "./PopupAddOrder";
-// const port = "https://carpentry-production-back.herokuapp.com"
+const port = "https://codit-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
 
 const UpdateTask = ({ id, name }) => {
@@ -33,7 +32,7 @@ const UpdateTask = ({ id, name }) => {
                 },
             };
             try {
-                const { data } = await axios.get(`${portLocal}/api/private`, config);
+                const { data } = await axios.get(`${port}/api/private`, config);
                 if (allTasksST && selectedTaskST && data.user.admin) {
                     setPrivateData(data.user);
                 } else {

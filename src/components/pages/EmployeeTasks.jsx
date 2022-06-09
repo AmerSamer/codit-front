@@ -3,6 +3,7 @@ import axios from "axios";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import NavNotAdmin from "../nav/navNotAdmin";
 const portLocal = "http://localhost:4001"
+const port = "https://codit-back.herokuapp.com"
 
 const EmployeeTasks = () => {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ const EmployeeTasks = () => {
                 },
             };
             try {
-                const { data } = await axios.get(`${portLocal}/api/private`, config);
+                const { data } = await axios.get(`${port}/api/private`, config);
                 if (employeeTasksST) {
                     setPrivateData(data.user);
                     getEmployeeTasks()
@@ -49,7 +50,7 @@ const EmployeeTasks = () => {
                 Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
             },
         };
-        const response = await axios.get(`${portLocal}/v1/getEmployeeTasks/${employeeTasksST}`, config);
+        const response = await axios.get(`${port}/v1/getEmployeeTasks/${employeeTasksST}`, config);
         setEmployeeTasks(response.data);
     }
     const getEmployeeDetails = async () => {
@@ -59,7 +60,7 @@ const EmployeeTasks = () => {
                 Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
             },
         };
-        const response = await axios.get(`${portLocal}/v1/getEmployeeDetails/${employeeTasksST}`, config);
+        const response = await axios.get(`${port}/v1/getEmployeeDetails/${employeeTasksST}`, config);
         setEmployeeDetails(response.data);
     }
     const startBtnHandler = async (id, idemp) => {
@@ -69,7 +70,7 @@ const EmployeeTasks = () => {
                 Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
             },
         };
-        await axios.put(`${portLocal}/v1/startEmployeeTasks/${id}`, { idemp }, config)
+        await axios.put(`${port}/v1/startEmployeeTasks/${id}`, { idemp }, config)
             .then((res) => {
                 if (res.status === 200) {
                     // navigate('/employees')
@@ -89,7 +90,7 @@ const EmployeeTasks = () => {
                 Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
             },
         };
-        await axios.put(`${portLocal}/v1/endEmployeeTasks/${id}`, { idemp }, config)
+        await axios.put(`${port}/v1/endEmployeeTasks/${id}`, { idemp }, config)
             .then((res) => {
                 if (res.status === 200) {
                     // navigate('/employees')

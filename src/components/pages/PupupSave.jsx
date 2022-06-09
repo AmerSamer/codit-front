@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Navigate, useNavigate,/* Link */ } from "react-router-dom";
 import './Popup.css'
-// const port = "https://carpentry-production-back.herokuapp.com"
+const port = "https://codit-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
 
 const PopupSave = (props) => {
@@ -16,7 +16,7 @@ const PopupSave = (props) => {
             },
         };
         if (props.type === "post") {
-            axios.post(`${portLocal}/v1/newEmployee`, props.addNewEmployeeST, config)
+            axios.post(`${port}/v1/newEmployee`, props.addNewEmployeeST, config)
                 .then((res) => {
                     if (res.status === 200) {
                         navigate('/employees')
@@ -28,7 +28,7 @@ const PopupSave = (props) => {
                     alert(`ERROR`)
                 })
         } else {
-            axios.put(`${portLocal}/v1/updateEmployee/${props.selectedEmployeeST._id}`, props.addNewEmployeeST, config)
+            axios.put(`${port}/v1/updateEmployee/${props.selectedEmployeeST._id}`, props.addNewEmployeeST, config)
                 .then((res) => {
                     if (res.status === 200) {
                         navigate('/employees')

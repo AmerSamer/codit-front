@@ -6,6 +6,7 @@ import NavNotAdmin from "../nav/navNotAdmin";
 import '../nav/nav.css'
 import './PrivateScreen.css'
 const portLocal = "http://localhost:4001"
+const port = "https://codit-back.herokuapp.com"
 
 const PrivateScreen = () => {
     const navigate = useNavigate();
@@ -24,7 +25,7 @@ const PrivateScreen = () => {
             };
 
             try {
-                const { data } = await axios.get(`${portLocal}/api/private`, config);
+                const { data } = await axios.get(`${port}/api/private`, config);
                 setPrivateData(data.user);
                 getAllEmployees() //axios get getAllOrders after setting token
             } catch (error) {
@@ -43,7 +44,7 @@ const PrivateScreen = () => {
                 Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
             },
         };
-        const response = await axios.get(`${portLocal}/v1/getAllEmployees/`, config);
+        const response = await axios.get(`${port}/v1/getAllEmployees/`, config);
         setAllEmployees(response.data);
     }
     const goToEmployees = () => {

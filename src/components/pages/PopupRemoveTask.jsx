@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import './Popup.css'
-// const port = "https://carpentry-production-back.herokuapp.com"
+const port = "https://codit-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
 
 const PopupRemoveTask = (props) => {
@@ -14,7 +14,7 @@ const PopupRemoveTask = (props) => {
             },
         };
 
-        axios.delete(`${portLocal}/v1/deleteTask/${id}`, config)
+        axios.delete(`${port}/v1/deleteTask/${id}`, config)
             .then((res) => {
                 if (res.status === 200) {
                     props.setTrigger(false)

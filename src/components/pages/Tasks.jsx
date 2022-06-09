@@ -5,6 +5,7 @@ import Nav from "../nav/nav";
 import "./employees.css";
 import PopupRemoveTask from "./PopupRemoveTask";
 const portLocal = "http://localhost:4001"
+const port = "https://codit-back.herokuapp.com"
 
 const Tasks = () => {
   const navigate = useNavigate()
@@ -29,7 +30,7 @@ const Tasks = () => {
       };
 
       try {
-        const { data } = await axios.get(`${portLocal}/api/private`, config);
+        const { data } = await axios.get(`${port}/api/private`, config);
         if (data.user.admin) {
           setPrivateData(data.user);
           getAllTasks() //axios get getAllTasks after setting token
@@ -54,7 +55,7 @@ const Tasks = () => {
         Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
       },
     };
-    const response = await axios.get(`${portLocal}/v1/getAllTasks/`, config);
+    const response = await axios.get(`${port}/v1/getAllTasks/`, config);
     setAllTasks(response.data);
 
   }
@@ -65,7 +66,7 @@ const Tasks = () => {
         Authorization: `Bearer ${localStorage.getItem("authTokenCodit")}`,
       },
     };
-    const response = await axios.get(`${portLocal}/v1/getAllEmployees/`, config);
+    const response = await axios.get(`${port}/v1/getAllEmployees/`, config);
     setAllEmployees(response.data);
 
   }

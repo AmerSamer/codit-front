@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Navigate, useNavigate,/* Link */ } from "react-router-dom";
 import './Popup.css'
-// const port = "https://carpentry-production-back.herokuapp.com"
+const port = "https://codit-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
 
 const PopupSaveTask = (props) => {
@@ -24,7 +24,7 @@ const PopupSaveTask = (props) => {
                 createdDate: (new Date().getFullYear() + "-" + ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "-" + ((new Date().getDate()) < 10 ? "0" + (new Date().getDate()) : (new Date().getDate()))),
 
             }
-            axios.post(`${portLocal}/v1/newTask`, newTask, config)
+            axios.post(`${port}/v1/newTask`, newTask, config)
                 .then((res) => {
                     if (res.status === 200) {
                         navigate('/tasks')
@@ -44,7 +44,7 @@ const PopupSaveTask = (props) => {
                 // createdDate: (new Date().getFullYear() + "-" + ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "-" + ((new Date().getDate()) < 10 ? "0" + (new Date().getDate()) : (new Date().getDate()))),
 
             }
-            axios.put(`${portLocal}/v1/updateTask/${props.selectedTaskST._id}`, newUpdatedTask, config)
+            axios.put(`${port}/v1/updateTask/${props.selectedTaskST._id}`, newUpdatedTask, config)
                 .then((res) => {
                     if (res.status === 200) {
                         navigate('/tasks')

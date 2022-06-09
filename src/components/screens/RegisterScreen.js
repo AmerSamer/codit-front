@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./RegisterScreen.css";
-// const port = "https://carpentry-production-back.herokuapp.com"
+const port = "https://codit-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
 
 const RegisterScreen = ({ history }) => {
@@ -33,7 +33,7 @@ const RegisterScreen = ({ history }) => {
 
     try {
       const { data } = await axios.post(
-        `${portLocal}/api/auth/register`,
+        `${port}/api/auth/register`,
         {
           username,
           email,

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import "./ResetPasswordScreen.css";
-// const port = "https://carpentry-production-back.herokuapp.com"
+const port = "https://codit-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
 
 const ResetPasswordScreen = ({ history, match }) => {
@@ -32,7 +32,7 @@ const ResetPasswordScreen = ({ history, match }) => {
 
     try {
       const { data } = await axios.put(
-        `${portLocal}/api/auth/passwordreset/${resetToken}`,
+        `${port}/api/auth/passwordreset/${resetToken}`,
         {
           password,
         },
