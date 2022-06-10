@@ -79,9 +79,9 @@ const AddTasks = ({ id, name, assign }) => {
                 return object.id === id;
             });
             if (index > -1) {
-                selectedAssignEmployees.splice(index,1)
-                setSelectedAssignEmployees(r=>{
-                  return [...r]
+                selectedAssignEmployees.splice(index, 1)
+                setSelectedAssignEmployees(r => {
+                    return [...r]
                 })
             }
         }
@@ -89,12 +89,11 @@ const AddTasks = ({ id, name, assign }) => {
     const submitNewTaskHandler = (event) => {
         event.preventDefault();
         const idExist = allTasksST.find(tsk => tsk.id === addNewTaskST.id)
-        if(!idExist){
+        if (!idExist) {
             setButtonPopup({ bool: true })
-        }else{
+        } else {
             alert(`This ID is already exist.`)
         }
-        
     }
     const sectionStyle = (id) => {
         const style = { backgroundColor: "rgba(1, 156, 49,0.8)", boxShadow: "0 1rem 2rem rgba(0, 0, 0, 0.2)", fontSize: "106%" }
@@ -107,16 +106,14 @@ const AddTasks = ({ id, name, assign }) => {
         <div id="add_employee">
             <div className="add_employee_form">
                 <form onSubmit={submitNewTaskHandler} >
-                    <div /*style={{ padding: "1rem", marginTop: "1rem" }}*/>
+                    <div>
                         <button type="button" className="btn btn-secondary" onClick={backToTasksClickBtn}><i className="fa fa-arrow-left" aria-hidden="true"></i></button>
                     </div>
-                    {/* <hr /> */}
                     <div style={{ letterSpacing: "7px", textAlign: "center", padding: "1rem", fontSize: '23px', marginTop: "0rem" }}>
                         Add Task
                     </div>
                     <div className="form-group" style={{ width: "100%", overflow: "hidden" }}>
                         <h4 className="ui dividing header" style={{ marginTop: "1rem" }}>Task Details</h4>
-                        {/* // */}
                         <div className="field">
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >ID</label>
                             <div className="two fields">
@@ -133,10 +130,9 @@ const AddTasks = ({ id, name, assign }) => {
                                 </div>
                             </div>
                         </div>
-                        {/* // */}
-                        <hr/>
+                        <hr />
                         <div className="field">
-                            <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Assign</label><hr/>
+                            <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Assign</label><hr />
                             <label style={{ fontFamily: "revert", fontWeight: "500", color: "black", padding: "0%", fontSize: "80%" }} >*Assign/Unassign employees by clicking on it</label>
                             <div className="two fields">
                                 <div className="field">

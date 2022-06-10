@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link , useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./LoginScreen.css";
 const port = "https://codit-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
@@ -14,7 +14,6 @@ const LoginScreen = ({ history }) => {
   useEffect(() => {
     if (localStorage.getItem("authToken")) {
       navigate('/');
-      // history.push("/");
     }
   }, [history]);
 
@@ -38,10 +37,7 @@ const LoginScreen = ({ history }) => {
 
       setTimeout(() => {
         navigate('/');
-    }, 1000)
-    
-      // history.push("/");
-
+      }, 1000)
     } catch (error) {
       setError(error.response.data.error);
       setTimeout(() => {
@@ -55,13 +51,10 @@ const LoginScreen = ({ history }) => {
       <form onSubmit={loginHandler} className="login-screen__form">
         <h3 className="login-screen__title">
           Sign in
-          {/* <h5 className="login-screen__title" style={{fontSize: "60%"}}>
-          Welcome Back, Please Login To Your Account
-          </h5> */}
         </h3>
         {error && <span className="error-message">{error}</span>}
         <div className="form-group">
-          <label style={{fontFamily:"revert", fontWeight:"bold", color: "white"}} htmlFor="email">Email:</label>
+          <label style={{ fontFamily: "revert", fontWeight: "bold", color: "white" }} htmlFor="email">Email:</label>
           <input
             type="email"
             required
@@ -73,7 +66,7 @@ const LoginScreen = ({ history }) => {
           />
         </div>
         <div className="form-group">
-          <label style={{fontFamily:"revert", fontWeight:"bold", color: "white"}} htmlFor="password">
+          <label style={{ fontFamily: "revert", fontWeight: "bold", color: "white" }} htmlFor="password">
             Password:{" "}
           </label>
           <input
@@ -87,19 +80,15 @@ const LoginScreen = ({ history }) => {
             tabIndex={2}
           />
           <Link to="/forgotpassword" className="login-screen__forgotpassword">
-          <span style={{float: "right"}}>Forgot Password?</span>
-            </Link>
+            <span style={{ float: "right" }}>Forgot Password?</span>
+          </Link>
         </div>
         <button type="submit" className="login-btn btn btn-info">
           Login
         </button>
-        <span className="login-screen__subtext" style={{fontSize: "75%"}}>
-          Don`t have an account? <Link to="/register" style={{color:"#138496"}}className="register-hover">Register</Link>
+        <span className="login-screen__subtext" style={{ fontSize: "75%" }}>
+          Don`t have an account? <Link to="/register" style={{ color: "#138496" }} className="register-hover">Register</Link>
         </span>
-        
-        {/* <span className="login-screen__subtext">
-          <Link to="/register"><span style={{color: "black"}}>Register</span></Link>
-        </span> */}
       </form>
     </div>
   );

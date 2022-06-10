@@ -39,10 +39,7 @@ const PopupSaveTask = (props) => {
             const newUpdatedTask = {
                 id: props.addNewTaskST.id,
                 name: props.addNewTaskST.name,
-                // status: "waiting",
                 assign: props.newEmployeesAssigned,
-                // createdDate: (new Date().getFullYear() + "-" + ((new Date().getMonth() + 1) < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + "-" + ((new Date().getDate()) < 10 ? "0" + (new Date().getDate()) : (new Date().getDate()))),
-
             }
             axios.put(`${port}/v1/updateTask/${props.selectedTaskST._id}`, newUpdatedTask, config)
                 .then((res) => {

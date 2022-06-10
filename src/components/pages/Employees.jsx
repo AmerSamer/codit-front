@@ -54,14 +54,12 @@ const Employees = () => {
       },
     };
     const response = await axios.get(`${port}/v1/getAllEmployees/`, config);
-    // const responseDataSortNewDate = response.data.sort((a, b) => (!a.delivered && !b.delivered) || (a.delivered && b.delivered) ? a.deliveryDate > b.deliveryDate ? 1 : -1 : a.delivered && !b.delivered ? 1 : -1)
     setAllEmployees(response.data);
   }
   const addEmployeesClickBtn = () => {
     navigate('/addEmployees', { state: allEmployees })
   }
   const trEmployeeHandler = (id) => {
-    // console.log(id);
     const selectedEmployee = allEmployees.find(emp => emp._id === id)
     navigate('/updateEmployee', { state: [allEmployees, selectedEmployee] })
   }
@@ -82,26 +80,16 @@ const Employees = () => {
             </div>
             <div className="par">
               {allEmployees.length === 0 ? (
-                <></>
-                // <div style={{ textAlign: "center", display: "flex", justifyContent: "center", alignSelf: "center", alignItems: "center" }}>
-                //   <div style={{ fontSize: "160%", fontFamily: "sans-serif" }}>No Employees Found.</div>
-                // </div>
+                <div style={{ textAlign: "center", display: "flex", justifyContent: "center", alignSelf: "center", alignItems: "center" }}>
+                  <div style={{ fontSize: "160%", fontFamily: "sans-serif" }}>No Employees Found.</div>
+                </div>
               ) : (
                 <div >
                   <table id="employees_table_data">
                     <thead>
-                      {/* <tr>
-                      <th>ID</th>
-                      <th>Full Name</th>
-                      <th>Email</th>
-                      <th>Phone Number</th>
-                      <th>Address</th>
-                      <th>Join Date</th>
-                      <th>More</th>
-                    </tr> */}
                     </thead>
                     <tbody>
-                      {allEmployees.length>0?allEmployees.map((emp, index) => {
+                      {allEmployees.length > 0 ? allEmployees.map((emp, index) => {
                         return (<tr key={index} >
                           <td onClick={() => trEmployeeHandler(emp._id)}>{emp.id}</td>
                           <td onClick={() => trEmployeeHandler(emp._id)}>{emp.fullName}</td>
@@ -111,9 +99,9 @@ const Employees = () => {
                           <td onClick={() => trEmployeeHandler(emp._id)}>{emp.joinDate}</td>
                           <td style={{ width: "6rem" }}><i className="btn-delete fas fa-trash-alt" onClick={() => setButtonPopup({ bool: true, idEmployee: emp.id, id: emp._id, fullName: emp.fullName })}></i></td>
                         </tr>)
-                      }):<div style={{ textAlign: "center", display: "flex", justifyContent: "center", alignSelf: "center", alignItems: "center" }}>
-                      <div style={{ fontSize: "160%", fontFamily: "sans-serif" }}>No Employees Found.</div>
-                    </div>}
+                      }) : <div style={{ textAlign: "center", display: "flex", justifyContent: "center", alignSelf: "center", alignItems: "center" }}>
+                        <div style={{ fontSize: "160%", fontFamily: "sans-serif" }}>No Employees Found.</div>
+                      </div>}
                     </tbody>
                   </table>
                 </div>

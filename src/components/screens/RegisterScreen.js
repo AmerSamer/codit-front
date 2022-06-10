@@ -50,16 +50,16 @@ const RegisterScreen = ({ history }) => {
       history.push("/");
 
     } catch (error) {
-      if(error.response){
+      if (error.response) {
         setError(error.response.data.error);
-      }else{
+      } else {
         setError("Invalid");
         setUsername("")
         setEmail("")
         setPassword("")
         setConfirmPassword("")
       }
-      
+
       setTimeout(() => {
         setError("");
       }, 5000);
@@ -72,7 +72,7 @@ const RegisterScreen = ({ history }) => {
         <h3 className="register-screen__title">Register</h3>
         {error && <span className="error-message">{error}</span>}
         <div className="form-group">
-          <label style={{fontFamily:"revert", fontWeight:"bold", color: "white"}} htmlFor="name">Username</label>
+          <label style={{ fontFamily: "revert", fontWeight: "bold", color: "white" }} htmlFor="name">Username</label>
           <input
             type="text"
             required
@@ -83,7 +83,7 @@ const RegisterScreen = ({ history }) => {
           />
         </div>
         <div className="form-group">
-          <label style={{fontFamily:"revert", fontWeight:"bold", color: "white"}} htmlFor="email">Email</label>
+          <label style={{ fontFamily: "revert", fontWeight: "bold", color: "white" }} htmlFor="email">Email</label>
           <input
             type="email"
             required
@@ -94,7 +94,7 @@ const RegisterScreen = ({ history }) => {
           />
         </div>
         <div className="form-group">
-          <label style={{fontFamily:"revert", fontWeight:"bold", color: "white"}} htmlFor="password">Password</label>
+          <label style={{ fontFamily: "revert", fontWeight: "bold", color: "white" }} htmlFor="password">Password</label>
           <input
             type="password"
             required
@@ -106,12 +106,12 @@ const RegisterScreen = ({ history }) => {
           />
         </div>
         <div className="form-group">
-          <label style={{fontFamily:"revert", fontWeight:"bold", color: "white"}} htmlFor="confirmpassword">Confirm Password</label>
+          <label style={{ fontFamily: "revert", fontWeight: "bold", color: "white" }} htmlFor="confirmpassword">Confirm Password</label>
           <input
             type="password"
             required
             id="confirmpassword"
-            style={{marginBottom:"1.5rem"}}
+            style={{ marginBottom: "1.5rem" }}
             autoComplete="true"
             placeholder=""
             value={confirmpassword}
@@ -121,13 +121,8 @@ const RegisterScreen = ({ history }) => {
         <button type="submit" className="register-btn btn btn-info">
           Register
         </button>
-
-        {/* <span className="login-screen__subtext" style={{fontSize: "75%"}}>
-          Don`t have an account? <Link to="/register" style={{color:"#138496"}}>Register</Link>
-        </span> */}
-
-        <span className="register-screen__subtext" style={{fontSize: "75%"}} >
-          Already have an account? <Link to="/login" style={{color:"#138496"}} className="login-hover" >Login</Link>
+        <span className="register-screen__subtext" style={{ fontSize: "75%" }} >
+          Already have an account? <Link to="/login" style={{ color: "#138496" }} className="login-hover" >Login</Link>
         </span>
       </form>
     </div>

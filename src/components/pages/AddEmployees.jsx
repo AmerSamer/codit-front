@@ -67,7 +67,6 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
         } else {
             alert(`This ID number is already exist.`)
         }
-
     }
 
     return error ? (
@@ -79,13 +78,11 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
                     <div /*style={{ padding: "1rem", marginTop: "1rem" }}*/>
                         <button type="button" className="btn btn-secondary" onClick={backToEmployeesClickBtn}><i className="fa fa-arrow-left" aria-hidden="true"></i></button>
                     </div>
-                    {/* <hr /> */}
                     <div style={{ letterSpacing: "7px", textAlign: "center", padding: "1rem", fontSize: '23px', marginTop: "0rem" }}>
                         Add Employee
                     </div>
                     <div className="form-group" style={{ width: "100%", overflow: "hidden" }}>
                         <h4 className="ui dividing header" style={{ marginTop: "1rem" }}>Employee Details</h4>
-                        {/* // */}
                         <div className="field">
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >ID</label>
                             <div className="two fields">
@@ -102,7 +99,6 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
                                 </div>
                             </div>
                         </div>
-                        {/* // */}
                         <div className="field">
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Email</label>
 
@@ -112,7 +108,6 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
                                 </div>
                             </div>
                         </div>
-                        {/* // */}
                         <div className="field">
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Phone Number</label>
 
@@ -122,7 +117,6 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
                                 </div>
                             </div>
                         </div>
-                        {/* // */}
                         <div className="field">
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Address</label>
 
@@ -132,7 +126,6 @@ const AddEmployees = ({ id, fullName, email, phoneNumber, address }) => {
                                 </div>
                             </div>
                         </div>
-                        {/* // */}
                         <hr />
                         <div style={{ textAlign: "center", marginTop: "1rem", width: "100%" }}>
                             <button type="submit" style={{ width: "60%" }} className="btn btn-info" >Add</button>

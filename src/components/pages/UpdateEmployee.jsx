@@ -3,7 +3,6 @@ import axios from "axios";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import './addEmployees.css'
 import PopupSave from "./PupupSave";
-// import PopupAddOrder from "./PopupAddOrder";
 const port = "https://codit-back.herokuapp.com"
 const portLocal = "http://localhost:4001"
 
@@ -87,16 +86,14 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
         <div id="add_employee">
             <div className="add_employee_form">
                 <form onSubmit={submitNewEmployeeHandler} >
-                    <div /*style={{ padding: "1rem", marginTop: "1rem" }}*/>
+                    <div>
                         <button type="button" className="btn btn-secondary" onClick={backToEmployeesClickBtn}><i className="fa fa-arrow-left" aria-hidden="true"></i></button>
                     </div>
-                    {/* <hr /> */}
                     <div style={{ letterSpacing: "7px", textAlign: "center", padding: "1rem", fontSize: '23px', marginTop: "0rem" }}>
                         Update Employee
                     </div>
                     <div className="form-group" style={{ width: "100%", overflow: "hidden" }}>
                         <h4 className="ui dividing header" style={{ marginTop: "1rem" }}>Employee Details</h4>
-                        {/* // */}
                         <div className="field">
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >ID</label>
                             <div className="two fields">
@@ -113,7 +110,6 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
                                 </div>
                             </div>
                         </div>
-                        {/* // */}
                         <div className="field">
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Email</label>
 
@@ -123,7 +119,6 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
                                 </div>
                             </div>
                         </div>
-                        {/* // */}
                         <div className="field">
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Phone Number</label>
 
@@ -133,7 +128,6 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
                                 </div>
                             </div>
                         </div>
-                        {/* // */}
                         <div className="field">
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Address</label>
 
@@ -143,7 +137,6 @@ const UpdateEmployee = ({ id, fullName, email, phoneNumber, address }) => {
                                 </div>
                             </div>
                         </div>
-                        {/* // */}
                         <hr />
                         <div style={{ textAlign: "center", marginTop: "1rem", width: "100%" }}>
                             <button type="submit" style={{ width: "60%" }} className="btn btn-info" >update</button>

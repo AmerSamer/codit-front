@@ -73,7 +73,6 @@ const EmployeeTasks = () => {
         await axios.put(`${port}/v1/startEmployeeTasks/${id}`, { idemp }, config)
             .then((res) => {
                 if (res.status === 200) {
-                    // navigate('/employees')
                     setRefresh(!refresh)
                 }
                 else {
@@ -93,7 +92,6 @@ const EmployeeTasks = () => {
         await axios.put(`${port}/v1/endEmployeeTasks/${id}`, { idemp }, config)
             .then((res) => {
                 if (res.status === 200) {
-                    // navigate('/employees')
                     setRefresh(!refresh)
                 }
                 else {
@@ -144,11 +142,6 @@ const EmployeeTasks = () => {
                 </div>
             </div>
             <div className="overlay"></div>
-            {/* <PopupRemove id={buttonPopup.id} trigger={buttonPopup.bool} setTrigger={setButtonPopup} allEmployees={allEmployees} setAllEmployees={setAllEmployees}>
-            <i style={{ fontSize: "50px" }} className="fa fa-trash" aria-hidden="true"></i>
-            <h3>Delete Permanently</h3>
-            <h6>Are you sure you want to delete <span style={{ fontWeight: "bold" }}>{buttonPopup.idEmployee}-{buttonPopup.fullName}</span> employee?</h6>
-          </PopupRemove> */}
         </div>
     )
 }

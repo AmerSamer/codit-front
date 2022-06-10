@@ -61,7 +61,6 @@ const UpdateTask = ({ id, name }) => {
                 [e.target.name]: (e.target.value)
             })
         }
-
     }
 
     const backToTasksClickBtn = () => {
@@ -95,7 +94,7 @@ const UpdateTask = ({ id, name }) => {
                     }
                 ]
             })
-        }else{
+        } else {
             notify(`This employee is already exist.`)
         }
     }
@@ -104,9 +103,9 @@ const UpdateTask = ({ id, name }) => {
             return object.id === id;
         });
         if (index > -1) {
-            newEmployeesAssigned.splice(index,1)
-            setNewEmployeesAssigned(r=>{
-              return [...r]
+            newEmployeesAssigned.splice(index, 1)
+            setNewEmployeesAssigned(r => {
+                return [...r]
             })
         }
     }
@@ -118,16 +117,14 @@ const UpdateTask = ({ id, name }) => {
         <div id="add_employee">
             <div className="add_employee_form">
                 <form onSubmit={submitNewTaskHandler} >
-                    <div /*style={{ padding: "1rem", marginTop: "1rem" }}*/>
+                    <div>
                         <button type="button" className="btn btn-secondary" onClick={backToTasksClickBtn}><i className="fa fa-arrow-left" aria-hidden="true"></i></button>
                     </div>
-                    {/* <hr /> */}
                     <div style={{ letterSpacing: "7px", textAlign: "center", padding: "1rem", fontSize: '23px', marginTop: "0rem" }}>
                         Update Task
                     </div>
                     <div className="form-group" style={{ width: "100%", overflow: "hidden" }}>
                         <h4 className="ui dividing header" style={{ marginTop: "1rem" }}>Task Details</h4>
-                        {/* // */}
                         <div className="field">
                             <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >ID</label>
                             <div className="two fields">
@@ -145,18 +142,16 @@ const UpdateTask = ({ id, name }) => {
                             </div>
                         </div>
                         <div className="field">
-                            {/* <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Assign</label><hr /> */}
                             <hr />
                             <label style={{ fontFamily: "revert", fontWeight: "500", color: "black", padding: "0%", fontSize: "80%" }} >*Assigned Employees</label>
                             <div className="two fields">
                                 <div className="field">
-                                    {/* {console.log("selectedTaskST", selectedTaskST)} */}
                                     {newEmployeesAssigned.map((tsk, index) => {
                                         return (
                                             <div key={index}>{employeeNamesAssigned(tsk).map((i, indexx) => (
                                                 <div className="selected-emp-map" key={indexx}>
-                                                    <div style={{ float:"left",overflow:"hidden",width: "90%" }}>{i.id}-{i.fullName} </div>
-                                                    <div style={{ width: "10%",overflow:"hidden" }}><i className="btn-delete fas fa-trash-alt" onClick={()=>deleteEmployeeAssigned(i._id)}></i></div>
+                                                    <div style={{ float: "left", overflow: "hidden", width: "90%" }}>{i.id}-{i.fullName} </div>
+                                                    <div style={{ width: "10%", overflow: "hidden" }}><i className="btn-delete fas fa-trash-alt" onClick={() => deleteEmployeeAssigned(i._id)}></i></div>
                                                 </div>
                                             ))}</div>
                                         )
@@ -165,9 +160,7 @@ const UpdateTask = ({ id, name }) => {
                             </div>
                         </div>
                         <hr />
-                        {/* {console.log("newEmployeesAssigned", newEmployeesAssigned)} */}
                         <div className="field">
-                            {/* <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "0%", fontSize: "100%" }} >Assign</label> */}
                             <label style={{ fontFamily: "revert", fontWeight: "500", color: "black", padding: "0%", fontSize: "80%" }} >*All Employees</label>
                             <div className="two fields">
                                 <div className="field">
@@ -179,7 +172,6 @@ const UpdateTask = ({ id, name }) => {
                                 </div>
                             </div>
                         </div>
-                        {/* // */}
                         <hr />
                         <div style={{ textAlign: "center", marginTop: "1rem", width: "100%" }}>
                             <button type="submit" style={{ width: "60%" }} className="btn btn-info" >update</button>

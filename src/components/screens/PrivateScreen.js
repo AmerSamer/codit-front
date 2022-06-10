@@ -63,7 +63,7 @@ const PrivateScreen = () => {
     }
     const goToEmployeeTasks = () => {
         if (selectedEmployeeTasks !== "" && selectedEmployeeTasks !== "Choose your name") {
-            navigate('/employeeTasks', {state : selectedEmployeeTasks})
+            navigate('/employeeTasks', { state: selectedEmployeeTasks })
         } else {
             alert("choose name")
         }
@@ -98,7 +98,6 @@ const PrivateScreen = () => {
                         <div style={{ fontSize: "160%", fontFamily: "sans-serif", color: "white" }}>LET`S MAKE SOMETHING <span style={{ color: "dodgerblue" }}>GREAT!</span></div>
                         <div style={{ padding: '20px' }}>
                             <div className="field">
-                                {/* <label style={{ fontFamily: "revert", fontWeight: "600", color: "black", padding: "1%", fontSize: "100%" }} >צבע</label> */}
                                 <div className="two fields">
                                     <div className="field">
                                         <select name="employeeSelect" className="employee_select" placeholder='chose' style={{ width: "20%", height: "5vh", backgroundColor: "rgba(255,255,255,0.8)" }} onChange={selectEmployeeHandler} >

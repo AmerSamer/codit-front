@@ -4,10 +4,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-image: url('../../bg-login.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover; */
     background: linear-gradient(-45deg, #3a1e15, #410f22, #23a6d5, #23d5ab);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
@@ -56,10 +52,10 @@
     font-size: 1rem;
 }
 
-input[type=text], input[type=tel], input[type=date], input[type=number]{
-    /* width: 100%; */
-    /* padding: 12px 20px; */
-    /* margin: 8px 0; */
+input[type=text],
+input[type=tel],
+input[type=date],
+input[type=number] {
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.3);
     color: black;
